@@ -9,6 +9,8 @@ public class gamma {
 		gamma b = new gamma();
 		System.out.println(b.bonjour("le monde"));
         }
+        
+        // un commentaire pour Alex
 }
 
 
