@@ -2,8 +2,8 @@ package ca.uqam.mgl7361.a2011.gamma;
 
 public class TestCase
 {
-    private Object objetA;
-    private Object objetB;
+    private Object objectA;
+    private Object objectB;
     
     public boolean assertEquals(int a, int b)
     {
@@ -55,28 +55,24 @@ public class TestCase
         return a.equals(b);
     }
     
-    public boolean isItEqual()
+    public boolean assertEquals()
     {
-        boolean result = false;
-        
-        System.out.print(" - Comparaison entre " + objetA + " et " + objetB);
-        result = objetA.equals(objetB);
-        
-        if (result == true)
-        {
-            System.out.println(" ... Ok");
-        }
-        else
-        {
-            System.out.println(" ... Erreur");
-        }
-        
-        return result;
+        return objectA.equals(objectB);
     }
     
     TestCase(Object a, Object b)
     {
-        objetA = a;
-        objetB = b;
+        objectA = a;
+        objectB = b;
+    }
+    
+    public Object getObjectA()
+    {
+        return objectA;
+    }
+    
+    public Object getObjectB()
+    {
+        return objectB;
     }
 }
