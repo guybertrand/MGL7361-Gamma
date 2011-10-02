@@ -2,6 +2,9 @@ package ca.uqam.mgl7361.a2011.gamma;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class TestCases
 {
@@ -10,13 +13,16 @@ public class TestCases
     private String traceFilename;
     
     public TestCases()
-    {
+    { 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        Date date = new Date();
+        traceFilename="./GammaTest-" + dateFormat.format(date) + ".log";
         testBad = 0;
         listTestCase = new ArrayList<TestCase>();
-        traceFilename = "c://traceGamma.txt";
+        System.out.println("logfile=" + traceFilename);
     }
     
-    TestCases(String filename)
+    public TestCases(String filename)
     {
         testBad = 0;
         listTestCase = new ArrayList<TestCase>();

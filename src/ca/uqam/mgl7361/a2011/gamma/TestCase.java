@@ -60,7 +60,7 @@ public class TestCase
         return objectA.equals(objectB);
     }
     
-    TestCase(Object a, Object b)
+    public TestCase(Object a, Object b)
     {
         objectA = a;
         objectB = b;
