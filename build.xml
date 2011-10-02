@@ -27,9 +27,9 @@
   <target name="dist" depends="compile"
         description="generate the distribution" >
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-  	<mkdir dir="${dist}/${DSTAMP}"/>
-    <jar jarfile="${dist}/${DSTAMP}/Gamma.jar" basedir="${build}" excludes="TestMain*"/>
-  	<copy todir="${dist}/${DSTAMP}/">
+  	<mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/Gamma.jar" basedir="${build}" excludes="TestMain*"/>
+  	<copy todir="${dist}/">
   	    <fileset dir="${build}/" includes="*.class"/>
   	  </copy>
   </target>
