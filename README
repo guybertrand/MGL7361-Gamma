@@ -3,4 +3,4 @@ $ cd MGL7361-Gamma
 $ ant
 $ ant run
 
-test
+Si vous utilisez Eclipse, choisir build.xml, right-click, run-as ANT build
