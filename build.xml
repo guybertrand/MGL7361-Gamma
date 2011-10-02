@@ -8,12 +8,11 @@
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
 
-    <!-- Create the time stamp -->
-  	<tstamp> 
-		<format property="touch.time" pattern="yyyy-MM-dd_hh-mm-aa" offset="-5" unit="hour"/>
-	</tstamp>
-
   <target name="init">
+  	<!-- Create the time stamp -->
+  	  	<tstamp> 
+  			<format property="DSTAMP" pattern="yyyy-MM-dd_hh-mm-aa" unit="hour"/>
+  		</tstamp>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
   </target>
@@ -28,7 +27,11 @@
   <target name="dist" depends="compile"
         description="generate the distribution" >
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/Gamma-${DSTAMP}.jar" basedir="${build}"/>
+  	<mkdir dir="${dist}/${DSTAMP}"/>
+    <jar jarfile="${dist}/${DSTAMP}/Gamma.jar" basedir="${build}" excludes="*/test/*"/>
+  	<copy todir="${dist}/${DSTAMP}/">
+  	    <fileset dir="${build}/" includes="*.class"/>
+  	  </copy>
   </target>
 
   <target name="run" depends="dist" description="on execute!!">
@@ -41,6 +44,5 @@
         description="clean up" >
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
-  	<delete dir="${buildtest}"/>
   </target>
 </project>
