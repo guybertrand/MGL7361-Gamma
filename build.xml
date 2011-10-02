@@ -6,28 +6,23 @@
   <property name="src" location="src"/>
   <property name="main_test" location="main_test"/>
   <property name="build" location="build"/>
-  <property name="buildtest" location="buildtest/"/>
   <property name="dist"  location="dist"/>
 
-  <target name="init">
     <!-- Create the time stamp -->
-    <tstamp/>
+  	<tstamp> 
+		<format property="touch.time" pattern="yyyy-MM-dd_hh-mm-aa" offset="-5" unit="hour"/>
+	</tstamp>
+
+  <target name="init">
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
-  	<mkdir dir="${buildtest}"/>
   </target>
 
-  <target name="compile-src" depends="init">
-	<javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
-  </target>
-  
-	<target name="compile-main_test" depends="init">
-	<javac srcdir="${main_test}" destdir="${buildtest}" includeantruntime="false"/>
-  </target>
-	
-  <target name="compile" depends="compile-src,compile-main_test"
-        description="compile the source ">
+  <target name="compile" depends="init"
+  	    description="compile the source ">
     <!-- Compile the java code from ${src} into ${build} -->
+  	<javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+
   </target>
 
   <target name="dist" depends="compile"
