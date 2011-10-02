@@ -15,7 +15,6 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
@@ -32,3 +31,5 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+/buildtest
+/build
