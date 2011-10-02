@@ -1,6 +1,6 @@
 package ca.uqam.mgl7361.a2011.gamma.test;
 
-import ca.uqam.mgl7361.a2011.gamma.*;
+import ca.uqam.mgl7361.a2011.gamma.TestCases;
 
 public class TestMain
 {

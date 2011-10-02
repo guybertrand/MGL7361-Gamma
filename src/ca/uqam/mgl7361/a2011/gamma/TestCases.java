@@ -9,7 +9,7 @@ public class TestCases
     private ArrayList<TestCase> listTestCase;
     private String traceFilename;
     
-    TestCases()
+    public TestCases()
     {
         testBad = 0;
         listTestCase = new ArrayList<TestCase>();

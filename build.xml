@@ -30,6 +30,12 @@
     <jar jarfile="${dist}/Gamma-${DSTAMP}.jar" basedir="${build}"/>
   </target>
 
+  <target name="run" depends="dist" description="on execute!!">
+  	    <java classname="ca.uqam.mgl7361.a2011.gamma.test.TestMain">
+  	      <classpath refid="classpath.runtime"/>
+  	    </java>
+  </target>
+	
   <target name="clean"
         description="clean up" >
     <!-- Delete the ${build} and ${dist} directory trees -->
