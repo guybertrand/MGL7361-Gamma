@@ -1,5 +1,4 @@
 package ca.uqam.mgl7361.a2011.gamma;
-
 import java.io.*;
 
 public class Trace
@@ -7,7 +6,7 @@ public class Trace
     private FileWriter outFile;
     private PrintWriter output;
     
-    Trace(String filename) throws IOException
+    public Trace(String filename) throws IOException
     {
         try
         {

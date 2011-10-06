@@ -1,78 +1,73 @@
 package ca.uqam.mgl7361.a2011.gamma;
 
+import java.util.ArrayList;
+import java.io.*;
+import java.lang.reflect.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class TestCase
 {
-    private Object objectA;
-    private Object objectB;
+    private ArrayList<TestIndividuel> listTest;
+    private String traceFilename;
     
-    public boolean assertEquals(int a, int b)
+    public TestCase()
     {
-        return a == b;
+        listTest = new ArrayList<TestIndividuel>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        traceFilename="./GammaTest-" + dateFormat.format(new Date()) + ".log";
+        System.out.println("logfile=" + traceFilename);
     }
     
-    public boolean assertEquals(long a, long b)
+    public TestCase(String filename)
     {
-        return a == b;
+        listTest = new ArrayList<TestIndividuel>();
+        traceFilename = filename;
     }
     
-    public boolean assertEquals(double a, double b)
+    public void addTest(TestIndividuel t)
     {
-        return a == b;
-    }
-       
-    public boolean assertEquals(boolean a, boolean b)
-    {
-        return a == b;
+        listTest.add(t);
     }
     
-    public boolean assertEquals(char a, char b)
+    public void execute()
     {
-        return a == b;
-    }
-    
-    public boolean assertEquals(byte a, byte b)
-    {
-        return a == b;
-    }
-    
-    public boolean assertEquals(short a, short b)
-    {
-        return a == b;
-    }
-    
-    public boolean assertEquals(float a, float b)
-    {
-        return a == b;
-    }
-    
-    public boolean assertEquals(String a, String b)
-    {
-        return a.equals(b);
-    }
-    
-    public boolean assertEquals(Object a, Object b)
-    {
-        return a.equals(b);
-    }
-    
-    public boolean assertEquals()
-    {
-        return objectA.equals(objectB);
-    }
-    
-    public TestCase(Object a, Object b)
-    {
-        objectA = a;
-        objectB = b;
-    }
-    
-    public Object getObjectA()
-    {
-        return objectA;
-    }
-    
-    public Object getObjectB()
-    {
-        return objectB;
+        int nbTest = 0, nbFailed = 0;
+        
+        try
+        {
+            Trace trace = new Trace(traceFilename);
+            trace.addLine("Début des cas de tests");
+        
+            for (TestIndividuel testIndividuel : listTest)
+            {             
+                for (Method m : testIndividuel.getClass().getMethods())
+                {
+                    if (m.isAnnotationPresent(Test.class))
+                    {
+                        nbTest++;
+                        testIndividuel.setUp();
+                        try
+                        {
+                            m.invoke(null);
+                        }
+                        catch (Throwable exception)
+                        {
+                            trace.addLine("- Erreur : " + testIndividuel.getClass() + " - " + exception.getCause());
+                            nbFailed++;
+                        }
+                        testIndividuel.tearDown();
+                    }
+                }
+            }
+            
+            trace.addLine(nbTest + " test(s) effectué(s), " + nbFailed + " test(s) échoué(s)");
+            trace.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
