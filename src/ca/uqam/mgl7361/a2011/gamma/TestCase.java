@@ -1,73 +1,117 @@
 package ca.uqam.mgl7361.a2011.gamma;
 
 import java.util.ArrayList;
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
-public class TestCase
+public class TestCase implements Test
 {
-    private ArrayList<TestIndividuel> listTest;
-    private String traceFilename;
+    private ArrayList<Testable> listTest;
+    private int nbTest;
+    private int nbFailed;
     
     public TestCase()
     {
-        listTest = new ArrayList<TestIndividuel>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        traceFilename="./GammaTest-" + dateFormat.format(new Date()) + ".log";
-        System.out.println("logfile=" + traceFilename);
+        listTest = new ArrayList<Testable>();
     }
     
-    public TestCase(String filename)
-    {
-        listTest = new ArrayList<TestIndividuel>();
-        traceFilename = filename;
-    }
-    
-    public void addTest(TestIndividuel t)
+    public void addTest(Testable t)
     {
         listTest.add(t);
     }
     
+    @Override
     public void execute()
     {
-        int nbTest = 0, nbFailed = 0;
+        nbTest = 0;
+        nbFailed = 0;
+        boolean resultat;
         
-        try
+        printHeader();
+        for (Testable test : listTest)
         {
-            Trace trace = new Trace(traceFilename);
-            trace.addLine("Début des cas de tests");
-        
-            for (TestIndividuel testIndividuel : listTest)
-            {             
-                for (Method m : testIndividuel.getClass().getMethods())
-                {
-                    if (m.isAnnotationPresent(Test.class))
-                    {
-                        nbTest++;
-                        testIndividuel.setUp();
-                        try
-                        {
-                            m.invoke(null);
-                        }
-                        catch (Throwable exception)
-                        {
-                            trace.addLine("- Erreur : " + testIndividuel.getClass() + " - " + exception.getCause());
-                            nbFailed++;
-                        }
-                        testIndividuel.tearDown();
-                    }
-                }
+            nbTest++;
+            test.setUp();
+            resultat = test.execute();
+            
+            if (resultat == false)
+            {
+                nbFailed++;
             }
             
-            trace.addLine(nbTest + " test(s) effectué(s), " + nbFailed + " test(s) échoué(s)");
-            trace.close();
+            printBody(resultat, test.getClass().getName());
+            test.tearDown();
         }
-        catch (IOException e)
+        printFooter();
+    }
+
+    private void printHeader()
+    {
+        if (Trace.getInstance().getWriteInXML())
         {
-            e.printStackTrace();
+            Trace.getInstance().addLine("   <CasDeTest>");
         }
+        else
+        {
+            Trace.getInstance().addLine("- Début d'un cas de test");
+        }
+    }
+    
+    private void printBody(boolean result, String className)
+    {
+        if (result)
+        {
+            if (Trace.getInstance().getWriteInXML())
+            {
+                Trace.getInstance().addLine("       <Test>");
+                Trace.getInstance().addLine("           <Nom>" + className + "</Nom>");
+                Trace.getInstance().addLine("           <Resultat>OK</Resultat>");
+                Trace.getInstance().addLine("       </Test>");
+            }
+            else
+            {
+                Trace.getInstance().addLine("-> Exécution du test : " + className + " ... OK");
+            }
+        }
+        else
+        {
+            if (Trace.getInstance().getWriteInXML())
+            {
+                Trace.getInstance().addLine("       <Test>");
+                Trace.getInstance().addLine("           <Nom>" + className + "</Nom>");
+                Trace.getInstance().addLine("           <Resultat>Erreur</Resultat>");
+                Trace.getInstance().addLine("       </Test>");
+            }
+            else
+            {
+                Trace.getInstance().addLine("-> Exécution du test : " + className + " ... Erreur");
+            }
+        }
+    }
+    
+    private void printFooter()
+    {
+        if (Trace.getInstance().getWriteInXML())
+        {
+            Trace.getInstance().addLine("       <Sommaire>");
+            Trace.getInstance().addLine("           <NombreDeTest>" + nbTest + "</NombreDeTest>");
+            Trace.getInstance().addLine("           <NombreEchec>" + nbFailed + "</NombreEchec>");
+            Trace.getInstance().addLine("       </Sommaire>");
+            Trace.getInstance().addLine("   </CasDeTest>");
+        }
+        else
+        {
+            Trace.getInstance().addLine("- Fin du cas de test");
+        }
+    }
+    
+    @Override
+    public int getNbTest()
+    {
+        return nbTest;
+    }
+
+    @Override
+    public int getNbTestFailed()
+    {
+        return nbFailed;
     }
 }

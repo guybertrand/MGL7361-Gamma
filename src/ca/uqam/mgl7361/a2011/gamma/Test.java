@@ -1,6 +1,8 @@
 package ca.uqam.mgl7361.a2011.gamma;
-import java.lang.annotation.*;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Test { }
+public interface Test
+{
+    public void execute();
+    public int getNbTest();
+    public int getNbTestFailed();
+}
