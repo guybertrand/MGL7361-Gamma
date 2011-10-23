@@ -3,11 +3,11 @@ $ cd MGL7361-Gamma
 $ ant
 $ ant run
 
-Les éxecutables seront dans le sous-répertoire DIST sous la forme:
+Les exécutables seront dans le sous-répertoire DIST sous la forme:
 Gamma.jar
 TestMain.class
 
-Pour éxecuter du command prompt:
+Pour exécuter du command prompt:
 java -classpath . TestMain
 
 Si vous utilisez Eclipse, choisir build.xml, right-click, run-as ANT build et choisir un des 2 target.
