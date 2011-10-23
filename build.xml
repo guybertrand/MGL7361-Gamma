@@ -4,8 +4,10 @@
     </description>
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
+  <property name="srcTest" location="srcTest"/>
   <property name="main_test" location="main_test"/>
   <property name="build" location="build"/>
+  <property name="buildTest" location="buildTest"/>
   <property name="dist"  location="dist"/>
 
   <target name="init">
@@ -15,20 +17,21 @@
   		</tstamp>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
+  	<mkdir dir="${buildTest}"/>
+  	<mkdir dir="${dist}"/>
   </target>
 
   <target name="compile" depends="init"
-  	    description="compile the source ">
+  	    description="compile the JAR source ">
     <!-- Compile the java code from ${src} into ${build} -->
   	<javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
-
+  	<javac srcdir="${srcTest}" destdir="${buildTest}" includeantruntime="false"/>
   </target>
 
   <target name="dist" depends="compile"
         description="generate the distribution" >
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-  	<mkdir dir="${dist}"/>
-    <jar jarfile="${dist}/Gamma.jar" basedir="${build}" excludes="TestMain*"/>
+    <jar jarfile="${dist}/Gamma.jar" basedir="${build}"/>
   	<copy todir="${dist}/">
   	    <fileset dir="${build}/" includes="*.class"/>
   	  </copy>
@@ -44,5 +47,7 @@
         description="clean up" >
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
+  	<delete dir="${buildTest}"/>
+  	<delete dir="${dist}"/>
   </target>
 </project>
