@@ -1,0 +1,28 @@
+<project name="GammaTest" default="run" basedir=".">
+    <description>
+        MGL 7361 A2011 équipe Gamma - on créer notre JAR et notre code qui va l'utiliser
+    </description>
+  <!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="srcTest" location="srcTest"/>
+  <property name="dist"  location="dist"/>
+
+  <target name="init">
+  	<!-- Create the time stamp -->
+  	  	<tstamp> 
+  			<format property="DSTAMP" pattern="yyyy-MM-dd_hh-mm-aa" unit="hour"/>
+  		</tstamp>
+    <!-- Create the build directory structure used by compile -->
+   	<mkdir dir="${dist}"/>
+  </target>
+
+	<target name="run">
+		<subant target="build">
+	    	<fileset dir="${src}" includes="build.xml"/>
+	 	</subant>
+		<subant target="build">
+			<fileset dir="${srcTest}" includes="buildTest.xml"/>
+		</subant>
+  	</target>
+	
+</project>
