@@ -4,25 +4,60 @@
     </description>
   <!-- set global properties for this build -->
 	<property name="src" location="src"/>
-	<property name="srcTest" location="srcTest"/>
-  <property name="dist"  location="dist"/>
+    <property name="build" location="build"/>
+	<property name="dist"  location="dist"/>
 
+   <property name="srcTest" location="srcTest"/>
+   <property name="buildTest" location="buildTest"/>
+   <property name="distTest"  location="distTest"/>
+  
   <target name="init">
   	<!-- Create the time stamp -->
   	  	<tstamp> 
   			<format property="DSTAMP" pattern="yyyy-MM-dd_hh-mm-aa" unit="hour"/>
   		</tstamp>
     <!-- Create the build directory structure used by compile -->
-   	<mkdir dir="${dist}"/>
+    <mkdir dir="${build}"/>
+  	<mkdir dir="${buildTest}"/>
+  	<mkdir dir="${dist}"/>
   </target>
 
-	<target name="run">
-		<subant target="build">
-	    	<fileset dir="${src}" includes="build.xml"/>
-	 	</subant>
-		<subant target="build">
-			<fileset dir="${srcTest}" includes="buildTest.xml"/>
-		</subant>
-  	</target>
+  <target name="compile" depends="init" description="compile the JAR source ">
+  	<javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+  </target>
+
+  <target name="jar" depends="compile" description="generate the distribution" >
+    <jar jarfile="${dist}/Gamma.jar" basedir="${build}"/>
+  	<copy todir="${dist}/">
+  	    <fileset dir="${build}/" includes="*.class"/>
+  	  </copy>
+  </target>
+
+  <target name="compileTest" depends="jar" description="compile the JAR source ">
+  	<javac srcdir="${srcTest}" destdir="${buildTest}" includeantruntime="false"/>
+  </target>
+
+  <target name="distTest" depends="compileTest" description="generate the distribution" >
+    <jar jarfile="${distTest}/monApp.jar" basedir="${buildTest}"/>
+  	<copy todir="${distTest}/">
+  	    <fileset dir="${buildTest}/" includes="*.class"/>
+  	  </copy>
+  </target>
+
+  <target name="run" depends="distTest" description="on execute!!">
+  	    <java classname="application.test.TestMain">
+			<classpath>
+				<pathelement path="${dist}/Gamma.jar"/>
+			</classpath>
+  	    </java>
+  </target>
 	
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+  	<delete dir="${buildTest}"/>
+  	<delete dir="${dist}"/>
+	<delete dir="${distTest}"/>
+  </target>
 </project>
