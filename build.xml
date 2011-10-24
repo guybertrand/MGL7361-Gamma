@@ -34,7 +34,11 @@
   </target>
 
   <target name="compileTest" depends="jar" description="compile the JAR source ">
-  	<javac srcdir="${srcTest}" destdir="${buildTest}" includeantruntime="false"/>
+  	<javac srcdir="${srcTest}" destdir="${buildTest}" includeantruntime="false">
+		<classpath>
+			<pathelement path="${dist}/Gamma.jar"/>
+		</classpath>
+	</javac>
   </target>
 
   <target name="distTest" depends="compileTest" description="generate the distribution" >
@@ -47,6 +51,7 @@
   <target name="run" depends="distTest" description="on execute!!">
   	    <java classname="application.test.TestMain">
 			<classpath>
+				<pathelement path="${distTest}/monApp.jar"/>
 				<pathelement path="${dist}/Gamma.jar"/>
 			</classpath>
   	    </java>
