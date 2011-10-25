@@ -12,3 +12,6 @@ Gamma.jar
 Le code usager est dans le sous-répertoire DISTTEST
 monApp.jar
 
+Pour rouler du command-line avec JAVA et option pour XML et écrire dans fichier:
+$ java -cp ./distTest/monApp.jar:./dist/Gamma.jar application.test.TestMain xml
+=true file=true
