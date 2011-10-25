@@ -2,16 +2,28 @@ $ git clone git://github.com/guybertrand/MGL7361-Gamma.git
 ou
 $ git clone https://guybertrand@github.com/guybertrand/MGL7361-Gamma.git
 
+=============================
+Pour compiler et éxecuter:
 $ cd MGL7361-Gamma
 $ ant
 
+=============================
+Pour nettoyer
+$ ant clean
 
-Les exécutables seront dans le sous-répertoire DIST sous la forme:
+=============================
+Pour seulement executer le code:
+$ ant run
+
+=============================
+info générale
+-Les exécutables seront dans le sous-répertoire DIST sous la forme:
 Gamma.jar
 
-Le code usager est dans le sous-répertoire DISTTEST
+-Le code usager est dans le sous-répertoire DISTTEST
 monApp.jar
 
+=============================
 Pour rouler du command-line avec JAVA et option pour XML et écrire dans fichier:
 $ java -cp ./distTest/monApp.jar:./dist/Gamma.jar application.test.TestMain xml
 =true file=true
