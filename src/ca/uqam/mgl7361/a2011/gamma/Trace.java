@@ -35,7 +35,14 @@ public class Trace
             if (writeOnFile)
             {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-                traceFilename= "./GammaTest-" + dateFormat.format(new Date()) + ".log";
+                if (writeInXML)
+                {
+                    traceFilename= "./GammaTest-" + dateFormat.format(new Date()) + ".xml";
+                }
+                else
+                {
+                    traceFilename= "./GammaTest-" + dateFormat.format(new Date()) + ".txt";
+                }
                 outFile = new FileWriter(traceFilename);
                 output = new PrintWriter(outFile);
             }
