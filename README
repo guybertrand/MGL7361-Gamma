@@ -3,7 +3,7 @@ ou
 $ git clone https://guybertrand@github.com/guybertrand/MGL7361-Gamma.git
 
 =============================
-Pour compiler et éxecuter:
+Pour compiler et exécuter:
 $ cd MGL7361-Gamma
 $ ant
 
@@ -12,7 +12,7 @@ Pour nettoyer
 $ ant clean
 
 =============================
-Pour seulement executer le code:
+Pour seulement exécuter le code:
 $ ant run
 
 =============================
@@ -24,6 +24,5 @@ Gamma.jar
 monApp.jar
 
 =============================
-Pour rouler du command-line avec JAVA et option pour XML et écrire dans fichier:
-$ java -cp ./distTest/monApp.jar:./dist/Gamma.jar application.test.TestMain xml
-=true file=true
+Pour exécuter à partir de la ligne de commande avec JAVA et option pour XML et écrire dans fichier:
+$ java -cp ./distTest/monApp.jar:./dist/Gamma.jar application.test.TestMain xml=true file=true
