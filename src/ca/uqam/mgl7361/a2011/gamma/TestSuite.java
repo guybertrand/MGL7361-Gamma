@@ -13,13 +13,13 @@ public class TestSuite implements Test
         listTest = new ArrayList<Test>();
     }
     
-    public void addTest(Test t)
+    public final void addTest(Test t)
     {
         listTest.add(t);
     }
     
     @Override
-    public void execute()
+    public final void execute()
     {
         nbTest = 0;
         nbFailed = 0;
@@ -64,13 +64,13 @@ public class TestSuite implements Test
     }
     
     @Override
-    public int getNbTest()
+    public final int getNbTest()
     {
         return nbTest;
     }
 
     @Override
-    public int getNbTestFailed()
+    public final int getNbTestFailed()
     {
         return nbFailed;
     }

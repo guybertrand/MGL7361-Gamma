@@ -2,7 +2,7 @@ package ca.uqam.mgl7361.a2011.gamma;
 
 import java.util.ArrayList;
 
-public class TestCase implements Test
+abstract public class TestCase implements Test
 {
     private ArrayList<Testable> listTest;
     private int nbTest;
@@ -13,13 +13,16 @@ public class TestCase implements Test
         listTest = new ArrayList<Testable>();
     }
     
-    public void addTest(Testable t)
+    abstract public void setUp();
+    abstract public void tearDown();
+    
+    public final void addTest(Testable t)
     {
         listTest.add(t);
     }
     
     @Override
-    public void execute()
+    public final void execute()
     {
         nbTest = 0;
         nbFailed = 0;
@@ -29,7 +32,7 @@ public class TestCase implements Test
         for (Testable test : listTest)
         {
             nbTest++;
-            test.setUp();
+            setUp();
             resultat = test.execute();
             
             if (resultat == false)
@@ -38,11 +41,11 @@ public class TestCase implements Test
             }
             
             printBody(resultat, test.getClass().getName());
-            test.tearDown();
+            tearDown();
         }
         printFooter();
     }
-
+    
     private void printHeader()
     {
         if (Trace.getInstance().getWriteInXML())
@@ -104,13 +107,13 @@ public class TestCase implements Test
     }
     
     @Override
-    public int getNbTest()
+    public final int getNbTest()
     {
         return nbTest;
     }
 
     @Override
-    public int getNbTestFailed()
+    public final int getNbTestFailed()
     {
         return nbFailed;
     }
