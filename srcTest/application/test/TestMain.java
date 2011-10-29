@@ -14,8 +14,8 @@ public class TestMain
         TestSuite testSuite1 = new TestSuite();
         TestSuite testSuite2 = new TestSuite();
         TestSuite testSuite3 = new TestSuite();
-        TestCase testCase1 = new TestCase();
-        TestCase testCase2 = new TestCase();
+        TestCase testCase1 = new TestCase1();
+        TestCase testCase2 = new TestCase1();
         
         testCase1.addTest(new Test1());
         testCase1.addTest(new Test2());
