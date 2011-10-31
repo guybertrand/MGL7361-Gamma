@@ -2,7 +2,7 @@ $ git clone git://github.com/guybertrand/MGL7361-Gamma.git
 ou
 $ git clone https://guybertrand@github.com/guybertrand/MGL7361-Gamma.git
 
-Le documet Gamma.doc contient les cas d'utilisation et les diagrammes de classe.
+Le documet Gamma.pdf contient les cas d'utilisation et les diagrammes de classe.
 
 =============================
 Pour compiler et exécuter:
