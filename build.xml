@@ -1,4 +1,4 @@
-<project name="GammaTest" default="run" basedir=".">
+﻿<project name="GammaTest" default="run" basedir=".">
 	<description>MGL 7361 A2011 équipe Gamma - on créer notre JAR et notre code qui va l'utiliser</description>
     	
     	<!-- set global properties for this build -->
@@ -46,8 +46,19 @@
   	  	</copy>
   	</target>
 
-  	<target name="run" depends="distTest" description="on execute!!">
+  	<target name="run" depends="distTest" description="On execute le code">
 		<java classname="application.test.TestMain">
+			<classpath>
+				<pathelement path="${distTest}/monApp.jar"/>
+				<pathelement path="${dist}/Gamma.jar"/>
+			</classpath>
+  	    	</java>
+  	</target>
+
+	<target name="runParam" depends="distTest" description="On execute le code avec parametre">
+		<java classname="application.test.TestMain">
+			<arg line="${arg1}" />
+			<arg line="${arg2}" />
 			<classpath>
 				<pathelement path="${distTest}/monApp.jar"/>
 				<pathelement path="${dist}/Gamma.jar"/>
