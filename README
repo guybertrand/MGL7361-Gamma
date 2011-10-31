@@ -12,10 +12,15 @@ Pour nettoyer
 $ ant clean
 
 =============================
-Pour seulement exécuter le code:
+Pour seulement exécuter le code (paramètres par défaut):
 $ ant run
 
 =============================
+Pour seulement exécuter le code (paramètres spécifiques):
+$ ant runParam -Darg1="xml=true" -Darg2="file=true"
+
+=============================
+
 info générale
 -Les exécutables seront dans le sous-répertoire DIST sous la forme:
 Gamma.jar
